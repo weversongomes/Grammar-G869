@@ -1,0 +1,33 @@
+﻿"Name"     = 'G869'
+"Author"   = 'Weverson'
+"Version"  = '0.1'
+"About"    = 'Uma gramática'
+
+"Start Symbol" = <Program>
+
+! -------------------------------------------------
+! Character Sets
+! -------------------------------------------------
+
+{String Chars} = {Printable} + {HT} - ["\]
+
+! -------------------------------------------------
+! Terminals
+! -------------------------------------------------
+
+Identifier    = {Letter}({AlphaNumeric} | '_')*
+StringLiteral = '"' ( {String Chars} | '\' {Printable} )* '"'
+
+! -------------------------------------------------
+! Rules
+! -------------------------------------------------
+
+! The grammar starts below
+<Program> ::= <ConstanteGlobal> | <Class>
+<VarTipo> ::= 'int' | 'float' | 'bool' | 'string'
+<PalavraReservada> ::= 'class' | 'final' | 'if' | 'else' | 'for' | 'scan' | 'print' | 'int' | 'float' | 'bool' | 'true' | 'false' | 'string'
+<ConstanteGlobal> ::= 'final' <VarTipo> Identifier ';'
+<Atributo> ::= <VarTipo> Identifier
+<Metodo> ::= <VarTipo> Identifier '(' <VarTipo> Identifier ')' '{' <Atributo> <Operacao> '}'
+<Operacao> ::= Identifier ':' Identifier ';'
+<Class> ::= class Identifier ':' Identifier '{' 'atributo' <Metodo> '}'
