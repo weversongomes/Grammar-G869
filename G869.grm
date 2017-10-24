@@ -17,7 +17,7 @@
 
 Identifier    = {Letter}({AlphaNumeric} | '_')*
 StringLiteral = '"' ( {String Chars} | '\' {Printable} )* '"'
-
+Number = {Digit}{Digit}*
 ! -------------------------------------------------
 ! Rules
 ! -------------------------------------------------
@@ -35,3 +35,7 @@ StringLiteral = '"' ( {String Chars} | '\' {Printable} )* '"'
 <Parametro> ::=  | Identifier <P1>
 <P1> ::= ',' Identifier <P1> | 
 <Class> ::= class Identifier ':' Identifier '{' 'atributo' <Metodo> '}'
+
+!Declaração de variáveis e objetos
+<Declaracao> ::= <VarTipo> Identifier <AuxDeclaracao> ';' | Identifier Identifier <AuxDeclaracao> ';'
+<AuxDeclaracao> ::= ',' Identifier <AuxDeclaracao> |
