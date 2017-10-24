@@ -1,0 +1,43 @@
+"Name"     = 'printSacan'
+"Author"   = 'kaique'
+"Version"  = '1.0'
+"About"    = ' Gramática'
+
+"Start Symbol" = <Program>
+
+! -------------------------------------------------
+! Character Sets
+! -------------------------------------------------
+
+{String Chars} = {Printable} + {HT} - ["\]
+
+! -------------------------------------------------
+! Terminals
+! -------------------------------------------------
+
+Identifier    = {Letter}({AlphaNumeric} | '_')*
+cadeia = '"' {String Chars} * '"'
+   
+Number = {Digit}{Digit}*
+! -------------------------------------------------
+! Rules
+! -------------------------------------------------
+
+! The grammar starts below
+<Program> ::=  <scan> 
+! Scan
+
+<scan> ::= 'scan' '('< id> ')' 
+<id>::=  Identifier ')' ';'  ',' <scan> 
+       
+
+!Declaração de variáveis e objetos
+<Declaracao> ::= <VarTipo> Identifier <AuxDeclaracao> ';' | Identifier Identifier <AuxDeclaracao> ';'
+<AuxDeclaracao> ::= ',' Identifier <AuxDeclaracao> | 
+!Atributo     
+<Atributo> ::= <VarTipo> Identifier
+<VarTipo> ::= 'int' | 'float' | 'bool' | 'string'  
+!Função print          
+<print>::= 'print' '(' <atributosPrint> ')' 
+<atributosPrint>::= cadeia ')' ';' ',' <print> | <Atributo> ','<print> | <VarTipo> ','<print> 
+                 
