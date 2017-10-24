@@ -17,7 +17,7 @@
 
 Identifier    = {Letter}({AlphaNumeric} | '_')*
 StringLiteral = '"' ( {String Chars} | '\' {Printable} )* '"'
-
+Number = {Digit}{Digit}*
 ! -------------------------------------------------
 ! Rules
 ! -------------------------------------------------

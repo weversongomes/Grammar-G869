@@ -1,0 +1,35 @@
+﻿"Start Symbol" = <Program>
+! -------------------------------------------------
+! Character Sets
+! -------------------------------------------------
+{String Chars} = {Printable} + {HT} - ["\]
+! -------------------------------------------------
+! Terminals
+! -------------------------------------------------
+Identifier    = {Letter}({AlphaNumeric} | '_')*
+StringLiteral = '"' ( {String Chars} | '\' {Printable} )* '"'
+Number = {Digit}{Digit}*
+! -------------------------------------------------
+! Rules
+! -------------------------------------------------
+! The grammar starts below
+<Program> ::= <Vetor> | <Matriz> | <Acesso>
+<VarTipo> ::= 'int' | 'float' | 'bool' | 'string'
+<PalavraReservada> ::= 'class' | 'final' | 'if' | 'else' | 'for' | 'scan' | 'print' | 'int' | 'float' | 'bool' | 'true' | 'false' | 'string'
+<ConstanteGlobal> ::= 'final' <VarTipo> Identifier ';'
+
+!Matrizes e Vetores
+<Vetor> ::= <VarTipo>'['Number']' Identifier  ';'
+<Matriz> ::= <VarTipo>'['Number']' <MatrizAux> Identifier ';'
+<MatrizAux> ::= '['Number']'<MatrizAux> |
+             
+!Acesso Vetor e Matrizes.
+<AcessoVetorMatriz> ::= Identifier '['Number']'<MatrizAux><AcessoAux> ';'
+<AcessoAux> ::= ':'Identifier <AcessoAux> | ':'<AcessoMetodo> <AcessoAux> | ':'<AcessoVetorMatriz> |
+<AcessoMetodo> ::= Identifier'('<Param>')'
+<Param> ::= Identifier | Number | 
+
+!Classe
+!*OBS: Colocar os comandos que podem ser invocados dentro das chaves da classe. (ex: métodos, declaração de variáveis, etc...)
+<Classe> ::= 'class' Identifier <ClasseHerança> '{''}'
+<ClasseHerança> ::= ',' Identifier |

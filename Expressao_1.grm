@@ -1,0 +1,58 @@
+"Start Symbol" = <Program>
+
+{String Ch}      = {Printable} - ["]
+{Char Ch}        = {Printable} - ['']
+
+Integer       = [123456789]{digit}*
+Float     = {Digit}*'.'{Digit}+
+String    = '"'( {String Ch} | '\'{Printable} )* '"'
+Char      = '' ( {Char Ch} | '\'{Printable} )''
+Identifier    = {Letter}({AlphaNumeric} | '_')*
+
+<Program> ::= <Expressao>
+           
+<Expressao> ::= <Expressao> ',' <Op Atribuicao>   
+               | <Op Atribuicao>
+
+<Op Atribuicao> ::= <Op If> '=' <Op Atribuicao>
+               | <Op If>
+
+<Op If> ::= <Op If> '||' <Op And>
+               | <Op And>
+
+<Op And> ::= <Op And> '&&' <Op Igualdade>
+               | <Op Igualdade>
+
+<Op Igualdade>  ::= <Op Igualdade> '!=' <Op Compararacao>
+               | <Op Compararacao>
+
+<Op Compararacao> ::= <Op Compararacao> '<'  <Op Adicao>
+               | <Op Compararacao> '>'  <Op Adicao>
+               | <Op Compararacao> '<=' <Op Adicao>
+               | <Op Compararacao> '>=' <Op Adicao>
+               | <Op Adicao>
+
+<Op Adicao> ::= <Op Adicao> '+' <Op Multiplicacao>
+               | <Op Adicao> '-' <Op Multiplicacao>
+               | <Op Multiplicacao>
+
+<Op Multiplicacao> ::= <Op Multiplicacao> '*' <Op Unitario>
+               | <Op Multiplicacao> '/' <Op Unitario>
+               | <Op Multiplicacao> '%' <Op Unitario>
+               | <Op Unitario>
+
+<Op Unitario> ::= '!'    <Op Unitario>
+               | '~'    <Op Unitario>   
+               | '-'    <Op Unitario>
+               | '*'    <Op Unitario>
+               | '&'    <Op Unitario>
+               | <Valor>
+
+<Valor> ::= Integer  
+               | String
+               | Char
+               | Float
+               | Identifier '(' <Expressao> ')'
+               | Identifier '(' ')'          
+               | Identifier
+               | '(' <Expressao> ')'
