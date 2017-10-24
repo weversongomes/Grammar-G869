@@ -23,15 +23,37 @@ StringLiteral = '"' ( {String Chars} | '\' {Printable} )* '"'
 ! -------------------------------------------------
 
 ! The grammar starts below
-<Program> ::= <ConstanteGlobal> | <Class>
-<VarTipo> ::= 'int' | 'float' | 'bool' | 'string'
+
+<Program> ::= <ConstanteGlobal> | <Classe>
+! Palavras Reservadas
 <PalavraReservada> ::= 'class' | 'final' | 'if' | 'else' | 'for' | 'scan' | 'print' | 'int' | 'float' | 'bool' | 'true' | 'false' | 'string'
-<ConstanteGlobal> ::= 'final' <VarTipo> Identifier ';'
-<Atributo> ::= <VarTipo> Identifier 
-<Metodo> ::= <VarTipo> Identifier '(' <VarTipo> Identifier ')' '{' <Atributo> <Operacao> '}'
-<Acesso> ::= Identifier <A1> ';'
-<A1> ::= ':' <A2> <A1> | 
-<A2> ::= Identifier | Identifier '(' <Parametro> ')'
-<Parametro> ::=  | Identifier <P1>
-<P1> ::= ',' Identifier <P1> | 
-<Class> ::= class Identifier ':' Identifier '{' 'atributo' <Metodo> '}'
+! Tipos de Variáveis
+<VarTipo> ::= 'int' | 'float' | 'bool' | 'string'
+! Constante Global
+<ConstanteGlobal> ::= 'final' <VarTipo> Identifier ';' <ConstanteGlobal> | 
+! Classe
+<Classe> ::= class Identifier <ClassePai> '{' <Var><Metodo> '}'
+<ClassePai> ::= ':' Identifier |
+! Atributos e Variáveis
+<Var> ::= <VarTipo> Identifier <AuxVar> ';' <Var> | Identifier Identifier <AuxVar> ';' <Var> |
+<AuxVar> ::= ',' Identifier <AuxVar> |
+<Metodo> ::= <VarTipo> Identifier '(' <Param> ')' '{' <Var><Comando> '}'
+! Comandos
+<Comando> ::= <Acesso><Comando> | 
+! Acessos
+<Acesso> ::= Identifier <AuxAcesso1> ';' | Identifier'['Number']'<AuxAcesso1> ';'
+<AuxAcesso1> ::= ':' <AuxAcesso2><AuxAcesso1> | 
+<AuxAcesso2> ::= Identifier | Identifier '(' <Param> ')' | Identifier'['Number']'<VetorAux>
+! Parametros
+<Param> ::=  | Identifier <AuxParam>
+<AuxParam> ::= ',' Identifier <AuxParam> | 
+! Vetores
+<Vetor> ::= <VarTipo>'['Number']' <VetorAux> Identifier ';'
+<VetorAux> ::= '['Number']'<VetorAux> |
+            
+! -------------------------------------------------
+! Não utilizados
+! -------------------------------------------------
+!<Main> ::= main(){<Comando> '<:'<RetornoMain>':>'}
+!<RetornoMain> ::= Identifier | false | true
+!<Comando> ::= <Laco><Comando> | <Metodo><Comando> | <Acesso><Comando> | <Declaracao><Comando> | <Atributo><Comando> |
