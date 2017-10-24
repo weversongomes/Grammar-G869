@@ -37,7 +37,8 @@ Number = {Digit}{Digit}*
 ! Atributos e Variáveis
 <Var> ::= <VarTipo> Identifier <AuxVar> ';' <Var> | Identifier Identifier <AuxVar> ';' <Var> |
 <AuxVar> ::= ',' Identifier <AuxVar> |
-<Metodo> ::= <VarTipo> Identifier '(' <Param> ')' '{' <Var><Comando> '}'
+<Metodo> ::= <VarTipo> Identifier '(' <Param> ')' '{' <Var><Comando> '<:'<RetornoMetodo>':>' '}'
+<RetornoMetodo> ::= Identifier | StringLiteral | Number
 ! Comandos
 <Comando> ::= <Acesso><Comando> | 
 ! Acessos
@@ -56,4 +57,4 @@ Number = {Digit}{Digit}*
 ! -------------------------------------------------
 !<Main> ::= main(){<Comando> '<:'<RetornoMain>':>'}
 !<RetornoMain> ::= Identifier | false | true
-!<Comando> ::= <Laco><Comando> | <Metodo><Comando> | <Acesso><Comando> | <Declaracao><Comando> | <Atributo><Comando> |
+!<Comando> ::= <Laco><Comando> | <Acesso><Comando> | <Atributo><Comando> |
