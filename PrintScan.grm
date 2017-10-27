@@ -1,0 +1,54 @@
+﻿"Name"     = 'printScan'
+"Author"   = 'kaiq'
+"Version"  = '1.0'
+"About"    = ' Gramática'
+
+"Start Symbol" = <Program>
+
+
+
+! -------------------------------------------------
+! Character Sets
+! -------------------------------------------------
+
+{String Chars} = {Printable} + {HT} - ["\]
+
+! -------------------------------------------------
+! Terminals
+! -------------------------------------------------
+
+Identifier    = {Letter}({AlphaNumeric} | '_')*
+StringLiteral = '"' ( {String Chars} | '\' {Printable} )* '"'
+Number = {Digit}{Digit}*
+! -------------------------------------------------
+! Rules
+! -------------------------------------------------
+
+! The grammar starts below
+<Program> ::=  <scan> <print> 
+
+
+
+<VarTipo> ::= 'int' | 'float' | 'bool' | 'string'
+ 
+
+! Atributos e Variáveis
+<Var> ::= <VarTipo> Identifier <AuxVar> ';' <Var> | Identifier Identifier <AuxVar> ';' <Var> |
+<AuxVar> ::= ',' Identifier <AuxVar> |
+
+    
+!função scan
+
+<scan>::= 'scan' '(' Identifier <id> ')' ';'|
+<id>::= ','  Identifier <id> |
+
+
+!fução print.
+
+<print>::= 'print' '(' <imprimir>')' ';' | 
+<imprimir>::= StringLiteral ',' <var> | StringLiteral| <var> 
+
+
+
+
+
