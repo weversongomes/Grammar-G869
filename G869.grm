@@ -24,7 +24,7 @@ Number = {Digit}{Digit}*
 
 ! The grammar starts below
 
-<Program> ::= <ConstanteGlobal> | <Classe>
+<Program> ::= <ConstanteGlobal> <Classe> <Main> | <ConstanteGlobal> <Main>
 ! Palavras Reservadas
 <PalavraReservada> ::= 'class' | 'final' | 'if' | 'else' | 'for' | 'scan' | 'print' | 'int' | 'float' | 'bool' | 'true' | 'false' | 'string'
 ! Tipos de Variáveis
@@ -32,15 +32,17 @@ Number = {Digit}{Digit}*
 ! Constante Global
 <ConstanteGlobal> ::= 'final' <VarTipo> Identifier ';' <ConstanteGlobal> | 
 ! Classe
-<Classe> ::= class Identifier <ClassePai> '{' <Var><Metodo> '}'
+<Classe> ::= class Identifier <ClassePai> '{' <ConteudoClasse> '}'
+<ConteudoClasse> ::= <Var><ConteudoClasse> | <Metodo><ConteudoClasse> |
 <ClassePai> ::= ':' Identifier |
 ! Atributos e Variáveis
-<Var> ::= <VarTipo> Identifier <AuxVar> ';' <Var> | Identifier Identifier <AuxVar> ';' <Var> |
+<Var> ::= <VarTipo> Identifier <AuxVar> ';' | Identifier Identifier <AuxVar> ';'
 <AuxVar> ::= ',' Identifier <AuxVar> |
-<Metodo> ::= <VarTipo> Identifier '(' <Param> ')' '{' <Var><Comando> '<:'<RetornoMetodo>':>' '}'
-<RetornoMetodo> ::= Identifier | StringLiteral | Number
+! Métodos
+<Metodo> ::= <VarTipo> Identifier '(' <Param> ')' '{' <Comando> '<:' <RetornoMetodo>':>' '}'
+<RetornoMetodo> ::= Identifier | StringLiteral | Number | 'true' | 'false'
 ! Comandos
-<Comando> ::= <Acesso><Comando> | 
+<Comando> ::= <Acesso><Comando> | 'laco'<Comando> |
 ! Acessos
 <Acesso> ::= Identifier <AuxAcesso1> ';' | Identifier'['Number']'<AuxAcesso1> ';'
 <AuxAcesso1> ::= ':' <AuxAcesso2><AuxAcesso1> | 
@@ -51,10 +53,12 @@ Number = {Digit}{Digit}*
 ! Vetores
 <Vetor> ::= <VarTipo>'['Number']' <VetorAux> Identifier ';'
 <VetorAux> ::= '['Number']'<VetorAux> |
-            
-! -------------------------------------------------
-! Não utilizados
-! -------------------------------------------------
-!<Main> ::= main(){<Comando> '<:'<RetornoMain>':>'}
-!<RetornoMain> ::= Identifier | false | true
-!<Comando> ::= <Laco><Comando> | <Acesso><Comando> | <Atributo><Comando> |
+! Print
+<print> ::= 'print' '(' <imprimir>')' ';' | 
+<imprimir> ::= StringLiteral ',' <var> | StringLiteral | <var> 
+! Scan
+<scan> ::= 'scan' '(' Identifier <id> ')' ';'|
+<id>::= ','  Identifier <id> |
+! Main
+<Main> ::= class 'Main' '{' 'main' '(' ')' '{' <Comando> '<:' <RetornoMain> ':>' '}' '}'
+<RetornoMain> ::= Identifier | false | true
