@@ -1,0 +1,32 @@
+"Name"    = 'Gramatica de Metodos'
+"Author"  = 'Eduardo'
+"About"   = 'Definicao da gramatica para escrita de metodos da linguagem'
+
+"Start Symbol" = <Method>
+               
+! -------------------------------------------------
+! Character Sets
+! -------------------------------------------------
+
+{String Chars} = {Printable} + {HT} - ["\]
+
+! -------------------------------------------------
+! Terminals
+! -------------------------------------------------
+
+Identifier = {Letter}({AlphaNumeric} | '_')*
+StringLiteral = '"' ( {String Chars} | '\' {Printable} )* '"'
+Number = {Digit}{Digit}*
+       
+! -------------------------------------------------
+! Rules
+! -------------------------------------------------
+
+! The grammar starts below
+
+<Method> ::= <VarType> Identifier '(' <Parameter> ')' '{' <Command> <Return> ';' '}'  
+<VarType> ::= 'int' | 'float' | 'bool' | 'string'
+<Parameter> ::= <VarType> Identifier <ParamList> | 
+<ParamList> ::= ',' <VarType> Identifier <ParamList> |            
+<Command> ::=
+<Return> ::= Identifier | StringLiteral | Number | 'true' | 'false'
