@@ -39,7 +39,7 @@ Number = {Digit}{Digit}*
 <Var> ::= <VarTipo> Identifier <AuxVar> ';' | Identifier Identifier <AuxVar> ';'
 <AuxVar> ::= ',' Identifier <AuxVar> |
 ! Métodos
-<Metodo> ::= <VarTipo> Identifier '(' <Param> ')' '{' <Comando> '<:' <RetornoMetodo>':>' '}'
+<Metodo> ::= <VarTipo> Identifier '(' <Param2> ')' '{' <Comando> '<:' <RetornoMetodo>':>' '}'
 <RetornoMetodo> ::= Identifier | StringLiteral | Number | 'true' | 'false'
 ! Comandos
 <Comando> ::= <Acesso><Comando> | 'laco'<Comando> |
@@ -50,6 +50,9 @@ Number = {Digit}{Digit}*
 ! Parametros
 <Param> ::=  | Identifier <AuxParam>
 <AuxParam> ::= ',' Identifier <AuxParam> | 
+! Parametros para declaração de métodos
+<Param2> ::=  | <VarTipo> Identifier <AuxParam2> | Identifier Identifier <AuxParam2>
+<AuxParam2> ::= ',' <VarTipo> Identifier <AuxParam2> | ',' Identifier Identifier <AuxParam2> | 
 ! Vetores
 <Vetor> ::= <VarTipo>'['Number']' <VetorAux> Identifier ';'
 <VetorAux> ::= '['Number']'<VetorAux> |
