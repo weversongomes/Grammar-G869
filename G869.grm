@@ -65,3 +65,14 @@ Number = {Digit}{Digit}*
 ! Main
 <Main> ::= class 'Main' '{' 'main' '(' ')' '{' <Comando> '<:' <RetornoMain> ':>' '}' '}'
 <RetornoMain> ::= Identifier | false | true
+
+!Condicionais
+!obs.: eu supus a existenca de op_relacional, mas ainda nao criaram essa. Fiz a producao permitindo que o if possa ser ou nao acompanhado por um else
+
+<CondicionalIf> ::= 'if' '('<op_relacional> ')' '{' <Comando>|<Condicional>|<print>|<RetornoMetodo>|<Var> '}'<CondicionalElse>
+<CondicionalElse> ::= 'else' '{' <Comando>|<Condicional>|<print>|<RetornoMetodo>|<Var> '}'|
+
+
+
+
+
