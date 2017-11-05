@@ -72,6 +72,11 @@ Number = {Digit}{Digit}*
 <CondicionalIf> ::= 'if' '('<op_relacional> ')' '{' <Comando>|<CondicionalIf>|<print>|<RetornoMetodo>|<Var> '}'<CondicionalElse>
 <CondicionalElse> ::= 'else' '{' <Comando>|<Condicional>|<print>|<RetornoMetodo>|<Var> '}'|
 
+!Operador
+<Operador> ::= <OperadorAritmetico> | <OperadorRelacional> | <OperadorLogico> 
+<OperadorAritmetico>  ::= '+'|'-'|'*'|'/'|'%'
+<OperadorRelacional> ::= '!='|'='|'<'|'<='|'>'|'>='
+<OperadorLogico> ::= '!'|'&&'|'||' 
 
 
 
