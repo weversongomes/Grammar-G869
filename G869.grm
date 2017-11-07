@@ -1,7 +1,7 @@
-﻿"Name"     = 'G869'
-"Author"   = 'Weverson'
+"Name"     = 'G869'
+"Author"   = 'P02'
 "Version"  = '0.1'
-"About"    = 'Uma gramática'
+"About"    = 'Gramática'
 
 "Start Symbol" = <Program>
 
@@ -42,7 +42,7 @@ Number = {Digit}{Digit}*
 <Metodo> ::= <VarTipo> Identifier '(' <Param2> ')' '{' <Comando> '<:' <RetornoMetodo>':>' '}'
 <RetornoMetodo> ::= Identifier | StringLiteral | Number | 'true' | 'false'
 ! Comandos
-<Comando> ::= <Acesso><Comando> | 'laco'<Comando> |
+<Comando> ::= <Acesso><Comando> | <Laco> | <CondicionalIf> | <print> | <scan> |
 ! Acessos
 <Acesso> ::= Identifier <AuxAcesso1> ';' | Identifier'['Number']'<AuxAcesso1> ';'
 <AuxAcesso1> ::= ':' <AuxAcesso2><AuxAcesso1> | 
@@ -65,25 +65,53 @@ Number = {Digit}{Digit}*
 ! Main
 <Main> ::= class 'Main' '{' 'main' '(' ')' '{' <Comando> '<:' <RetornoMain> ':>' '}' '}'
 <RetornoMain> ::= Identifier | false | true
+!Operacoes
+<Operacao> ::= <Operacao> ',' <Op Atribuicao>   
+               | <Op Atribuicao>
 
-!Condicionais
-!obs.: eu supus a existenca de op_relacional, mas ainda nao criaram essa. Fiz a producao permitindo que o if possa ser ou nao acompanhado por um else
+<Op Atribuicao> ::= <Op If> '=' <Op Atribuicao>
+               | <Op If>
 
-<CondicionalIf> ::= 'if' '('<OperacaoRelacional> ')' '{' <Comando>|<CondicionalIf>|<print>|<RetornoMetodo>|<Var> '}'<CondicionalElse>
-<CondicionalElse> ::= 'else' '{' <Comando>|<Condicional>|<print>|<RetornoMetodo>|<Var> '}'|
-!Laco
-<Laco> ::= 'for' '('<ID> '=' <Numero>|<ID>| ';' <OperacaoRelacional> ';' <ID>++|<ID> '=' <ID>|<Numero>  <OperadorAritimetico>  <ID>|<Numero>  ')' 
-'{'
-	<Comando>|<Var>|<CondicionalIf>|<print>|<RetornoMetodo>|<scan>
- '}'
+<Op If> ::= <Op If> '||' <Op And>
+               | <Op And>
 
+<Op And> ::= <Op And> '&&' <Op Igualdade>
+               | <Op Igualdade>
 
-!Operador
-<Operador> ::= <OperadorAritmetico> | <OperadorRelacional> | <OperadorLogico> 
-<OperadorAritmetico>  ::= '+'|'-'|'*'|'/'|'%'
+<Op Igualdade>  ::= <Op Igualdade> '!=' <Op Compararacao>
+               | <Op Compararacao>
+
+<Op Compararacao> ::= <Op Compararacao> '<'  <Op Adicao>
+               | <Op Compararacao> '>'  <Op Adicao>
+               | <Op Compararacao> '<=' <Op Adicao>
+               | <Op Compararacao> '>=' <Op Adicao>
+               | <Op Adicao>
+
+<Op Adicao> ::= <Op Adicao> '+' <Op Multiplicacao>
+               | <Op Adicao> '-' <Op Multiplicacao>
+               | <Op Multiplicacao>
+
+<Op Multiplicacao> ::= <Op Multiplicacao> '*' <Op Unitario>
+               | <Op Multiplicacao> '/' <Op Unitario>
+               | <Op Multiplicacao> '%' <Op Unitario>
+               | <Op Unitario>
+
+<Op Unitario> ::= '!'    <Op Unitario>
+               | '~'    <Op Unitario>   
+               | '-'    <Op Unitario>
+               | '*'    <Op Unitario>
+               | '&'    <Op Unitario>  
+!Operadores
+<OperadorAritmetico> ::= '+'|'-'|'*'|'/'|'%'
 <OperadorRelacional> ::= '!='|'='|'<'|'<='|'>'|'>='
-<OperadorLogico> ::= '!'|'&&'|'||' 
-
-
-
-
+<OperadorLogico> ::= '&&' | '||' | '!'
+!Laco
+<TipoVariavel> ::= StringLiteral | Number | 'true' | 'false'         
+<Incremento> ::= Identifier <OperadorAritmetico> Number
+<Laco> ::= 'for' '(' <Atribuicao> ';' <Condicao> ';' <Incremento> ')' '{' <Comando> '}'        
+<Atribuicao> ::= Identifier '=' <TipoVariavel> |
+<AuxCondicao> ::= <OperadorLogico> <Condicao> |
+<Condicao> ::= Identifier <OperadorRelacional> Identifier <AuxCondicao>
+!Condicionais
+<CondicionalIf> ::= 'if' '(' <Condicao> ')' '{' <Comando> '}' <CondicionalElse>
+<CondicionalElse> ::= 'else' '{' <Comando> '}' |      
