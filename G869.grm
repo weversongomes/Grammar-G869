@@ -42,7 +42,8 @@ Number = {Digit}{Digit}*
 <Metodo> ::= <VarTipo> Identifier '(' <Param2> ')' '{' <Comando> '<:' <RetornoMetodo>':>' '}'
 <RetornoMetodo> ::= Identifier | StringLiteral | Number | 'true' | 'false'
 ! Comandos
-<Comando> ::= <Acesso><Comando> | <Laco> | <CondicionalIf> | <print> | <scan> |
+!<Comando> ::= <Acesso><Comando> | <Laco> | <CondicionalIf> | <print> | <scan> |
+<Comando> ::= <Acesso><Comando> |
 ! Acessos
 <Acesso> ::= Identifier <AuxAcesso1> ';' | Identifier'['Number']'<AuxAcesso1> ';'
 <AuxAcesso1> ::= ':' <AuxAcesso2><AuxAcesso1> | 
