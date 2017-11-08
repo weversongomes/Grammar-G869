@@ -36,7 +36,7 @@ Number = {Digit}{Digit}*
 <ConteudoClasse> ::= <Var><ConteudoClasse> | <Metodo><ConteudoClasse> |
 <ClassePai> ::= ':' Identifier |
 ! Atributos e Variáveis
-<Var> ::= <VarTipo> Identifier <AuxVar> ';' | Identifier Identifier <AuxVar> ';'
+<Var> ::= <VarTipo> Identifier <AuxVar> ';' | Identifier Identifier <AuxVar> ';' | <Vetor>
 <AuxVar> ::= ',' Identifier <AuxVar> |
 ! Métodos
 <Metodo> ::= <VarTipo> Identifier '(' <Param2> ')' '{' <Comando> '<:' <RetornoMetodo>':>' '}'
