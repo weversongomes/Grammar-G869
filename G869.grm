@@ -26,11 +26,11 @@ Number = {Digit}{Digit}*
 
 <Program> ::= <ConstanteGlobal> <Classe> <Main> | <ConstanteGlobal> <Main>
 ! Palavras Reservadas
-<PalavraReservada> ::= 'class' | 'final' | 'if' | 'else' | 'for' | 'scan' | 'print' | 'int' | 'float' | 'bool' | 'true' | 'false' | 'string'
+! <PalavraReservada> ::= 'class' | 'final' | 'if' | 'else' | 'for' | 'scan' | 'print' | 'int' | 'float' | 'bool' | 'true' | 'false' | 'string'
 ! Tipos de Variáveis
 <VarTipo> ::= 'int' | 'float' | 'bool' | 'string'
 ! Constante Global
-<ConstanteGlobal> ::= 'final' <VarTipo> Identifier ';' <ConstanteGlobal> | 
+<ConstanteGlobal> ::= 'final' <VarTipo> Identifier ';' <ConstanteGlobal> | 'final' <Vetor> |
 ! Classe
 <Classe> ::= class Identifier <ClassePai> '{' <ConteudoClasse> '}'
 <ConteudoClasse> ::= <Var><ConteudoClasse> | <Metodo><ConteudoClasse> |
@@ -42,7 +42,7 @@ Number = {Digit}{Digit}*
 <Metodo> ::= <VarTipo> Identifier '(' <Param2> ')' '{' <Comando> '<:' <RetornoMetodo>':>' '}'
 <RetornoMetodo> ::= Identifier | StringLiteral | Number | 'true' | 'false'
 ! Comandos
-<Comando> ::= <Acesso><Comando> | <Laco><Comando> | <CondicionalIf><Comando> | <print><Comando> | <scan><Comando> | 
+<Comando> ::= <Acesso><Comando> | <Laco><Comando> | <CondicionalIf><Comando> | <print><Comando> | <scan><Comando> | <OperadorAritmetico><Comando> | <Expressao><Comando> |
 ! Acessos
 <Acesso> ::= Identifier <AuxAcesso1> ';' | Identifier'['Number']'<AuxAcesso1> ';'
 <AuxAcesso1> ::= ':' <AuxAcesso2><AuxAcesso1> | 
@@ -65,53 +65,38 @@ Number = {Digit}{Digit}*
 ! Main
 <Main> ::= class 'Main' '{' 'main' '(' ')' '{' <Comando> '<:' <RetornoMain> ':>' '}' '}'
 <RetornoMain> ::= Identifier | false | true
-!Operacoes
-<Operacao> ::= <Operacao> ',' <Op Atribuicao>   
-               | <Op Atribuicao>
-
-<Op Atribuicao> ::= <Op If> '=' <Op Atribuicao>
-               | <Op If>
-
-<Op If> ::= <Op If> '||' <Op And>
-               | <Op And>
-
-<Op And> ::= <Op And> '&&' <Op Igualdade>
-               | <Op Igualdade>
-
-<Op Igualdade>  ::= <Op Igualdade> '!=' <Op Compararacao>
-               | <Op Compararacao>
-
+! Expressões
+<Expressao> ::= <Expressao> ',' <Op Atribuicao> | <Op Atribuicao>
+<Op Atribuicao> ::= <Op If> '=' <Op Atribuicao> | <Op If>
+<Op If> ::= <Op If> '||' <Op And> | <Op And>
+<Op And> ::= <Op And> '&&' <Op Igualdade> | <Op Igualdade>
+<Op Igualdade> ::= <Op Igualdade> '!=' <Op Compararacao> | <Op Compararacao>
 <Op Compararacao> ::= <Op Compararacao> '<'  <Op Adicao>
                | <Op Compararacao> '>'  <Op Adicao>
                | <Op Compararacao> '<=' <Op Adicao>
                | <Op Compararacao> '>=' <Op Adicao>
                | <Op Adicao>
-
-<Op Adicao> ::= <Op Adicao> '+' <Op Multiplicacao>
-               | <Op Adicao> '-' <Op Multiplicacao>
-               | <Op Multiplicacao>
-
+<Op Adicao> ::= <Op Adicao> '+' <Op Multiplicacao> | <Op Adicao> '-' <Op Multiplicacao> | <Op Multiplicacao>
 <Op Multiplicacao> ::= <Op Multiplicacao> '*' <Op Unitario>
                | <Op Multiplicacao> '/' <Op Unitario>
                | <Op Multiplicacao> '%' <Op Unitario>
                | <Op Unitario>
-
-<Op Unitario> ::= '!'    <Op Unitario>
+<Op Unitario> ::= '!'   <Op Unitario>
                | '~'    <Op Unitario>   
                | '-'    <Op Unitario>
                | '*'    <Op Unitario>
                | '&'    <Op Unitario>  
-!Operadores
+! Operadores
 <OperadorAritmetico> ::= '+'|'-'|'*'|'/'|'%'
 <OperadorRelacional> ::= '!='|'='|'<'|'<='|'>'|'>='
 <OperadorLogico> ::= '&&' | '||' | '!'
-!Laco
+! Laco
 <TipoVariavel> ::= StringLiteral | Number | 'true' | 'false'         
 <Incremento> ::= Identifier <OperadorAritmetico> Number
 <Laco> ::= 'for' '(' <Atribuicao> ';' <Condicao> ';' <Incremento> ')' '{' <Comando> '}'        
 <Atribuicao> ::= Identifier '=' <TipoVariavel> |
 <AuxCondicao> ::= <OperadorLogico> <Condicao> |
 <Condicao> ::= Identifier <OperadorRelacional> Identifier <AuxCondicao>
-!Condicionais
+! Condicionais
 <CondicionalIf> ::= 'if' '(' <Condicao> ')' '{' <Comando> '}' <CondicionalElse>
 <CondicionalElse> ::= 'else' '{' <Comando> '}' |      
