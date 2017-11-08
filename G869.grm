@@ -42,8 +42,7 @@ Number = {Digit}{Digit}*
 <Metodo> ::= <VarTipo> Identifier '(' <Param2> ')' '{' <Comando> '<:' <RetornoMetodo>':>' '}'
 <RetornoMetodo> ::= Identifier | StringLiteral | Number | 'true' | 'false'
 ! Comandos
-!<Comando> ::= <Acesso><Comando> | <Laco> | <CondicionalIf> | <print> | <scan> |
-<Comando> ::= <Acesso><Comando> | <Laco><Comando> | <CondicionalIf><Comando> | 
+<Comando> ::= <Acesso><Comando> | <Laco><Comando> | <CondicionalIf><Comando> | <print><Comando> | <scan><Comando> | 
 ! Acessos
 <Acesso> ::= Identifier <AuxAcesso1> ';' | Identifier'['Number']'<AuxAcesso1> ';'
 <AuxAcesso1> ::= ':' <AuxAcesso2><AuxAcesso1> | 
@@ -58,10 +57,10 @@ Number = {Digit}{Digit}*
 <Vetor> ::= <VarTipo>'['Number']' <VetorAux> Identifier ';'
 <VetorAux> ::= '['Number']'<VetorAux> |
 ! Print
-<print> ::= 'print' '(' <imprimir>')' ';' | 
+<print> ::= 'print' '(' <imprimir>')' ';'
 <imprimir> ::= StringLiteral ',' <var> | StringLiteral | <var> 
 ! Scan
-<scan> ::= 'scan' '(' Identifier <id> ')' ';'|
+<scan> ::= 'scan' '(' Identifier <id> ')' ';'
 <id>::= ','  Identifier <id> |
 ! Main
 <Main> ::= class 'Main' '{' 'main' '(' ')' '{' <Comando> '<:' <RetornoMain> ':>' '}' '}'
