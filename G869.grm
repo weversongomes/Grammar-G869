@@ -1,4 +1,4 @@
-"Name"     = 'G869'
+﻿"Name"     = 'G869'
 "Author"   = 'P02'
 "Version"  = '0.1'
 "About"    = 'Gramática'
@@ -43,7 +43,7 @@ Number = {Digit}{Digit}*
 <RetornoMetodo> ::= Identifier | StringLiteral | Number | 'true' | 'false'
 ! Comandos
 !<Comando> ::= <Acesso><Comando> | <Laco> | <CondicionalIf> | <print> | <scan> |
-<Comando> ::= <Acesso><Comando> |
+<Comando> ::= <Acesso><Comando> | <Laco><Comando> | <CondicionalIf><Comando> | 
 ! Acessos
 <Acesso> ::= Identifier <AuxAcesso1> ';' | Identifier'['Number']'<AuxAcesso1> ';'
 <AuxAcesso1> ::= ':' <AuxAcesso2><AuxAcesso1> | 
