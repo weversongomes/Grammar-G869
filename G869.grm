@@ -42,9 +42,9 @@ Number = {Digit}{Digit}*
 <Metodo> ::= <VarTipo> Identifier '(' <Param2> ')' '{' <Comando> '<:' <RetornoMetodo>':>' '}'
 <RetornoMetodo> ::= Identifier | StringLiteral | Number | 'true' | 'false'
 ! Comandos
-<Comando> ::= <Acesso><Comando> | <Laco><Comando> | <CondicionalIf><Comando> | <print><Comando> | <scan><Comando> | <OperadorAritmetico><Comando> | <Expressao><Comando> |
+<Comando> ::= <Acesso><Comando> | <Laco><Comando> | <CondicionalIf><Comando> | <print><Comando> | <scan><Comando> | <OperadorAritmetico><Comando> | <Expressao><Comando> | <Vetor><Comando> |
 ! Acessos
-<Acesso> ::= Identifier <AuxAcesso1> ';' | Identifier'['Number']'<AuxAcesso1> ';'
+<Acesso> ::= Identifier <AuxAcesso1> ';'
 <AuxAcesso1> ::= ':' <AuxAcesso2><AuxAcesso1> | 
 <AuxAcesso2> ::= Identifier | Identifier '(' <Param> ')' | Identifier'['Number']'<VetorAux>
 ! Parametros
