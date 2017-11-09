@@ -91,7 +91,7 @@ Number = {Digit}{Digit}*
 <OperadorRelacional> ::= '!='|'='|'<'|'<='|'>'|'>='
 <OperadorLogico> ::= '&&' | '||' | '!'
 ! Laco
-<TipoVariavel> ::= StringLiteral | Number | 'true' | 'false'         
+<TipoVariavel> ::= StringLiteral | Number | 'true' | 'false' | Identifier
 <Incremento> ::= Identifier '=' Identifier <OperadorAritmetico> Number
 <Laco> ::= 'for' '(' <Atribuicao> ';' <Condicao> ';' <Incremento> ')' '{' <Comando> '}'        
 <Atribuicao> ::= Identifier '=' <TipoVariavel> |
