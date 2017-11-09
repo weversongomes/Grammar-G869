@@ -94,7 +94,7 @@ Number = {Digit}{Digit}*
 <TipoVariavel> ::= StringLiteral | Number | 'true' | 'false' | Identifier
 <Incremento> ::= Identifier '=' Identifier <OperadorAritmetico> Number
 <Laco> ::= 'for' '(' <Atribuicao> ';' <Condicao> ';' <Incremento> ')' '{' <Comando> '}'        
-<Atribuicao> ::= Identifier '=' <TipoVariavel> | Identifier '=' <TipoVariavel> ';' |
+<Atribuicao> ::= Identifier '=' <TipoVariavel> | 
 <AuxCondicao> ::= <OperadorLogico> <Condicao> |
 <Condicao> ::= Identifier <OperadorRelacional> <TipoVariavel> <AuxCondicao>
 ! Condicionais
