@@ -57,7 +57,7 @@ Number = {Digit}{Digit}*
 <Vetor> ::= <VarTipo>'['Number']' <VetorAux> Identifier ';'
 <VetorAux> ::= '['Number']'<VetorAux> |
 ! Print
-<print> ::= 'print' '(' <imprimir>')' ';'
+<print> ::= 'print' '(' <imprimir> ')' ';'
 <imprimir> ::= StringLiteral ',' <var> | StringLiteral | <var> 
 ! Scan
 <scan> ::= 'scan' '(' Identifier <id> ')' ';'
@@ -92,11 +92,11 @@ Number = {Digit}{Digit}*
 <OperadorLogico> ::= '&&' | '||' | '!'
 ! Laco
 <TipoVariavel> ::= StringLiteral | Number | 'true' | 'false'         
-<Incremento> ::= Identifier <OperadorAritmetico> Number
+<Incremento> ::= Identifier '=' Identifier <OperadorAritmetico> Number
 <Laco> ::= 'for' '(' <Atribuicao> ';' <Condicao> ';' <Incremento> ')' '{' <Comando> '}'        
 <Atribuicao> ::= Identifier '=' <TipoVariavel> |
 <AuxCondicao> ::= <OperadorLogico> <Condicao> |
-<Condicao> ::= Identifier <OperadorRelacional> Identifier <AuxCondicao>
+<Condicao> ::= Identifier <OperadorRelacional> <TipoVariavel> <AuxCondicao>
 ! Condicionais
 <CondicionalIf> ::= 'if' '(' <Condicao> ')' '{' <Comando> '}' <CondicionalElse>
-<CondicionalElse> ::= 'else' '{' <Comando> '}' |      
+<CondicionalElse> ::= 'else' '{' <Comando> '}' |
