@@ -1,9 +1,4 @@
-﻿"Name"     = 'G869'
-"Author"   = 'P02'
-"Version"  = '0.1'
-"About"    = 'Gramática'
-
-"Start Symbol" = <Program>
+﻿"Start Symbol" = <Program>
 
 ! -------------------------------------------------
 ! Character Sets
@@ -41,8 +36,6 @@ Number = {Digit}{Digit}*
 ! Métodos
 <Metodo> ::= <VarTipo> Identifier '(' <Param2> ')' '{' <Comando> '<:' <RetornoMetodo>':>' '}'
 <RetornoMetodo> ::= Identifier | StringLiteral | Number | 'true' | 'false'
-! Comandos
-<Comando> ::= <Var><Comando> | <Acesso><Comando> | <Laco><Comando> | <CondicionalIf><Comando> | <print><Comando> | <scan><Comando> | <OperadorAritmetico><Comando> | <Expressao><Comando> |
 ! Acessos
 <Acesso> ::= Identifier <AuxAcesso1> ';'
 <AuxAcesso1> ::= ':' <AuxAcesso2><AuxAcesso1> | 
@@ -65,38 +58,24 @@ Number = {Digit}{Digit}*
 ! Main
 <Main> ::= class 'Main' '{' 'main' '(' ')' '{' <Comando> '<:' <RetornoMain> ':>' '}' '}'
 <RetornoMain> ::= Identifier | false | true
-! Expressões
-<Expressao> ::= <Expressao> ',' <Op Atribuicao> | <Op Atribuicao>
-<Op Atribuicao> ::= <Op If> '=' <Op Atribuicao> | <Op If>
-<Op If> ::= <Op If> '||' <Op And> | <Op And>
-<Op And> ::= <Op And> '&&' <Op Igualdade> | <Op Igualdade>
-<Op Igualdade> ::= <Op Igualdade> '!=' <Op Compararacao> | <Op Compararacao>
-<Op Compararacao> ::= <Op Compararacao> '<'  <Op Adicao>
-               | <Op Compararacao> '>'  <Op Adicao>
-               | <Op Compararacao> '<=' <Op Adicao>
-               | <Op Compararacao> '>=' <Op Adicao>
-               | <Op Adicao>
-<Op Adicao> ::= <Op Adicao> '+' <Op Multiplicacao> | <Op Adicao> '-' <Op Multiplicacao> | <Op Multiplicacao>
-<Op Multiplicacao> ::= <Op Multiplicacao> '*' <Op Unitario>
-               | <Op Multiplicacao> '/' <Op Unitario>
-               | <Op Multiplicacao> '%' <Op Unitario>
-               | <Op Unitario>
-<Op Unitario> ::= '!'   <Op Unitario>
-               | '~'    <Op Unitario>   
-               | '-'    <Op Unitario>
-               | '*'    <Op Unitario>
-               | '&'    <Op Unitario>  
 ! Operadores
 <OperadorAritmetico> ::= '+'|'-'|'*'|'/'|'%'
 <OperadorRelacional> ::= '!='|'='|'<'|'<='|'>'|'>='
 <OperadorLogico> ::= '&&' | '||' | '!'
-! Laco
+! Operacoes
 <TipoVariavel> ::= StringLiteral | Number | 'true' | 'false' | Identifier
+<OperacaoAritmetica> ::= Identifier <AuxOpAritmetica> | Number <AuxOpAritmetica>
+<AuxOpAritmetica> ::= <OperadorAritmetico> Identifier <Aux2OpAritmetica> | <OperadorAritmetico> Number <Aux2OpAritmetica> 
+<Aux2OpAritmetica> ::= <OperadorAritmetico> Identifier <Aux2OpAritmetica> | <OperadorAritmetico> Number <Aux2OpAritmetica> | ';' 
+<OperacaoRelacional> ::= Identifier <OperadorRelacional> <TipoVariavel> <OperacaoLogica> | <OperacaoLogicaNot> <OperacaoLogica>
+<OperacaoLogica> ::= <OperadorLogico> <OperacaoRelacional> |
+<OperacaoLogicaNot> ::= '!' '(' <OperacaoRelacional> ')' 
+! Laco
 <Incremento> ::= Identifier '=' Identifier <OperadorAritmetico> Number
-<Laco> ::= 'for' '(' <Atribuicao> ';' <Condicao> ';' <Incremento> ')' '{' <Comando> '}'        
-<Atribuicao> ::= Identifier '=' <TipoVariavel> | 
-<AuxCondicao> ::= <OperadorLogico> <Condicao> |
-<Condicao> ::= Identifier <OperadorRelacional> <TipoVariavel> <AuxCondicao>
+<Laco> ::= 'for' '(' <Atribuicao> ';' <OperacaoRelacional> ';' <Incremento> ')' '{' <Comando> '}'        
+<Atribuicao> ::= Identifier '=' <TipoVariavel>
 ! Condicionais
-<CondicionalIf> ::= 'if' '(' <Condicao> ')' '{' <Comando> '}' <CondicionalElse>
+<CondicionalIf> ::= 'if' '(' <OperacaoRelacional> ')' '{' <Comando> '}' <CondicionalElse>
 <CondicionalElse> ::= 'else' '{' <Comando> '}' |
+! Comandos
+<Comando> ::= <Var><Comando> | <Acesso><Comando> | <Laco><Comando> | <CondicionalIf><Comando> | <print><Comando> | <scan><Comando> | <OperacaoAritmetica><Comando> | 
