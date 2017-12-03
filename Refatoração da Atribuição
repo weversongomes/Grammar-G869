@@ -1,0 +1,5 @@
+!atribuição
+
+<atribuicao> ::= Identifier <atribuicao2>
+<atribuicao2> ::= <OperadorRelacional><atribuicao3>
+<atribuicao3> ::= <OperacaoAritmetica> ';' | <TipoVariavel> ';'
